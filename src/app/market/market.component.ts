@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FoodieRestService } from '../foodie-rest.service';
 
 @Component({
   selector: 'app-market',
@@ -6,10 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./market.component.css']
 })
 export class MarketComponent implements OnInit {
-
-  constructor() { }
+  items:any = []; 
+  constructor(public rest:FoodieRestService) { }
 
   ngOnInit() {
   }
+
+  getItems() {
+  this.items = [];
+  this.rest.getItems().subscribe((data: {}) => {
+    console.log("Se ejecuta correctamente");
+    console.log(data);
+    //this.products = data;
+  });
+}
 
 }
