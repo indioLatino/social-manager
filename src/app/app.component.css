@@ -1,0 +1,12 @@
+/*market component*/
+.navbar.navigation-header{
+  background-color: #0DE093;
+  color:#FFFFFF;
+}
+.main-logo{
+  font-size: 40px;
+  margin-left: 20px;
+}
+main{
+  padding-top: 150px;
+}
