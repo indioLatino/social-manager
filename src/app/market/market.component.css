@@ -1,12 +1,12 @@
-.container{
-  height:1300px;
-  background-color: yellow;
+/*market component*/
+.navbar.navigation-header{
+  background-color: #0DE093;
+  color:#FFFFFF;
 }
-.view{
-  background-color: #FAFAFA;
+.main-logo{
+  font-size: 40px;
+  margin-left: 20px;
 }
-.img-fluid{
-  object-fit: cover;
-  height: 300px;
-  margin: 0 auto;
+main{
+  padding-top: 150px;
 }

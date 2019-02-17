@@ -1,0 +1,17 @@
+.img-fluid{
+  object-fit: cover;
+  height: 300px;
+  margin: 0 auto;
+}
+main{
+  padding-top: 0px;
+}
+.span4 img {
+    margin-right: 10px;
+}
+.span4 .img-left {
+    float: left;
+}
+.span4 .img-right {
+    float: right;
+}
