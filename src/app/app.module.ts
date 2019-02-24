@@ -12,6 +12,7 @@ import { ItemsListComponent } from './items-list/items-list.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NoteBookComponent } from './note-book/note-book.component';
+import { InstructionListComponent } from './instruction-list/instruction-list.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { NoteBookComponent } from './note-book/note-book.component';
     MarketComponent,
     ItemsListComponent,
     ItemDetailComponent,
-    NoteBookComponent
+    NoteBookComponent,
+    InstructionListComponent
   ],
   imports: [
     BrowserModule,

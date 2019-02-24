@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <!-- Horizontal Steppers -->
+  <div class="row">
+    <div class="col-4 col-sm-12">
+
+      <!-- Stepers Wrapper -->
+      <ul class="stepper stepper-horizontal">
+        <!-- <div > -->
+          <li *ngFor="let instruction of screenInstructionArray; let myIndex = index" [ngClass]="{'completed': instruction.instructionOrder<currentInstructionPosition, 'active': instruction.instructionOrder==currentInstructionPosition, 'warning':instruction.instructionOrder>currentInstructionPosition}">
+            <a (click)="changeCurrentInstruction(instruction.instructionOrder)">
+              <span class="circle" [ngClass]="{'bg-success-custom': instruction.instructionOrder==currentInstructionPosition}">{{instruction.instructionOrder}}</span>
+            </a>
+          </li>
+
+      </ul>
+      <!-- /.Stepers Wrapper -->
+    </div>
+    <!-- <div *ngFor="let instruction of sortedInstructionArray; let myIndex = index" [ngClass]="{'hidden': true}"> -->
+      <div class="col-8 instruction-box col-sm-12 d-flex">
+        <div id="{{currentInstruction.instructionOrder}}" class="row justify-content-center align-self-center">
+          <p class="dark-grey-text">{{currentInstruction.instructionText}}</p>
+        </div>
+      </div>
+    <!-- </div> -->
+  </div>
+  <!-- /.Horizontal Steppers -->
+
+</div>

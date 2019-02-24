@@ -3,9 +3,7 @@
   height: 300px;
   margin: 0 auto;
 }
-main{
-  padding-top: 0px;
-}
+
 .span4 img {
     margin-right: 10px;
 }
@@ -14,4 +12,18 @@ main{
 }
 .span4 .img-right {
     float: right;
+}
+.container{
+  margin-top:110px;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .container {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+  .jumbotron {
+    box-shadow: none;
+  }
 }
