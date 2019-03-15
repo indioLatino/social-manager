@@ -50,7 +50,8 @@
 
   </div>
     <!-- Grid row -->
-
-    <app-instruction-list [instructionArray]="instructionsArray"></app-instruction-list>
+    <div *ngIf="instructionsArrayObs | async">
+      <app-instruction-list [instructionArray]="instructionsArray"></app-instruction-list>
+    </div>
 
 </div>

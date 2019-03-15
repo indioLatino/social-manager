@@ -33,7 +33,6 @@ import { InstructionListComponent } from './instruction-list/instruction-list.co
     AppRoutingModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
