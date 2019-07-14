@@ -1,0 +1,11 @@
+.instruction-box{
+  padding: 5px 80px;
+}
+.bg-success-custom{
+  background-color: green!important;
+}
+@media screen and (max-width: 600px) {
+  .instruction-box{
+    padding: 5px 10px;
+  }
+}
