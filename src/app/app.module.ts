@@ -6,12 +6,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {HeaderComponent} from './header/header.component';
 import {MatToolbarModule} from '@angular/material';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {RouterModule, Routes} from "@angular/router";
+import {ItemsModule} from "./items/items.module";
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/item', pathMatch: 'full' },
+  {path: '', redirectTo: '/item', pathMatch: 'full'},
   {
     path: '',
     component: AppComponent,
@@ -22,7 +25,7 @@ const routes: Routes = [
       }
     ]
   },
-  {  path: '**', redirectTo: '/item' }
+  {path: '**', redirectTo: '/item'}
 ];
 
 @NgModule({
@@ -31,16 +34,29 @@ const routes: Routes = [
     HeaderComponent,
   ],
   imports: [
+    ItemsModule,
     BrowserModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     HttpClientModule,
     MDBBootstrapModule.forRoot(),
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
-  // exports: [ RouterModule ]
+  exports: [RouterModule],
   schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule {
+}
+
+// required for AOT compilation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
 }

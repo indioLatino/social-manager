@@ -1,4 +1,4 @@
 export class Instruction {
-  instructionOrder:number;
-  instructionText:string;
+  instructionOrder: number;
+  instructionText: string;
 }

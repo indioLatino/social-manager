@@ -4,8 +4,9 @@ import { ItemsListComponent } from './items-list/items-list.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import {NoteBookComponent} from "./note-book/note-book.component";
 import {InstructionListComponent} from "./instruction-list/instruction-list.component";
-import {ItemsRoutingModule} from "./items-routing.module";
 import {RouterModule, Routes} from "@angular/router";
+import { CreatorComponent } from './creator/creator.component';
+import {TranslateModule} from "@ngx-translate/core";
 
 const routes: Routes = [
   {
@@ -21,13 +22,15 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    TranslateModule
   ],
   declarations: [
     NoteBookComponent,
     InstructionListComponent,
     ItemsListComponent,
-    ItemDetailComponent
+    ItemDetailComponent,
+    CreatorComponent
   ]
 })
 export class ItemsModule { }
