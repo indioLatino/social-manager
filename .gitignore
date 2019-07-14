@@ -19,6 +19,7 @@
 *.launch
 .settings/
 *.sublime-workspace
+social-manager.iml
 
 # IDE - VSCode
 .vscode/*
