@@ -1,7 +1,7 @@
 <div class="container">
 
   <!-- Jumbotron -->
-  <div class="jumbotron  bg-transparent" *ngIf="itemObs | async">
+  <div class="jumbotron  bg-transparent">
 
 
   <!-- Grid row -->
@@ -52,8 +52,10 @@
 
   </div>
     <!-- Grid row -->
-    <div *ngIf="instructionsArrayObs | async">
-      <app-instruction-list [instructionArray]="instructionsArray"></app-instruction-list>
+    <div *ngIf="instructionsReady">
+      Abuelita
+
+      <app-instruction-list></app-instruction-list>
     </div>
 
 </div>

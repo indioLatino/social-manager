@@ -1,28 +1,34 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import { MarketComponent } from './market/market.component';
-import { MatToolbarModule} from '@angular/material';
-import { HttpClientModule } from '@angular/common/http';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { ItemsListComponent } from './items-list/items-list.component';
-import { ItemDetailComponent } from './item-detail/item-detail.component';
-import { AppRoutingModule } from './app-routing.module';
-import { NoteBookComponent } from './note-book/note-book.component';
-import { InstructionListComponent } from './instruction-list/instruction-list.component';
+import {HeaderComponent} from './header/header.component';
+import {MatToolbarModule} from '@angular/material';
+import {HttpClientModule} from '@angular/common/http';
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
+import {RouterModule, Routes} from "@angular/router";
 
+const routes: Routes = [
+  { path: '', redirectTo: '/item', pathMatch: 'full' },
+  {
+    path: '',
+    component: AppComponent,
+    children: [
+      {
+        path: 'item',
+        loadChildren: () => import('./items/items.module').then(m => m.ItemsModule)
+      }
+    ]
+  },
+  {  path: '**', redirectTo: '/item' }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    MarketComponent,
-    ItemsListComponent,
-    ItemDetailComponent,
-    NoteBookComponent,
-    InstructionListComponent
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,9 +36,11 @@ import { InstructionListComponent } from './instruction-list/instruction-list.co
     MatToolbarModule,
     HttpClientModule,
     MDBBootstrapModule.forRoot(),
-    AppRoutingModule
+    RouterModule.forRoot(routes)
   ],
-  schemas: [ NO_ERRORS_SCHEMA ],
+  // exports: [ RouterModule ]
+  schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

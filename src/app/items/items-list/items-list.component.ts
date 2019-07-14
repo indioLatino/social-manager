@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FoodieRestService } from '../foodie-rest.service';
-import { Item } from '../model/item';
-import { Product } from '../model/product';
-import { Instruction } from '../model/instruction';
+import { FoodieRestService } from '../../common/service/foodie-rest.service';
+import { Item } from '../../model/item';
+import { Product } from '../../model/product';
+import { Instruction } from '../../model/instruction';
 
 @Component({
   selector: 'app-items-list',
