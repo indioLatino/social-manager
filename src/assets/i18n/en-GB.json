@@ -1,3 +1,8 @@
 {
-  "createdBy": "Created by: "
+  "item-detail": {
+    "ingredients": "Ingredients",
+    "instructions": "Instructions",
+    "description": "Description"
+  },
+  "createdBy": "By: "
 }

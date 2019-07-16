@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ItemsListComponent } from './items-list/items-list.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
@@ -7,6 +7,10 @@ import {InstructionListComponent} from "./instruction-list/instruction-list.comp
 import {RouterModule, Routes} from "@angular/router";
 import { CreatorComponent } from './creator/creator.component';
 import {TranslateModule} from "@ngx-translate/core";
+import { ProductListComponent } from './product-list/product-list/product-list.component';
+// RECOMMENDED
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import {TabsModule} from "ngx-bootstrap";
 
 const routes: Routes = [
   {
@@ -23,6 +27,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    AccordionModule,
+    TabsModule,
     TranslateModule
   ],
   declarations: [
@@ -30,7 +36,11 @@ const routes: Routes = [
     InstructionListComponent,
     ItemsListComponent,
     ItemDetailComponent,
-    CreatorComponent
+    CreatorComponent,
+    ProductListComponent
+  ],
+  schemas: [
+    NO_ERRORS_SCHEMA
   ]
 })
 export class ItemsModule { }

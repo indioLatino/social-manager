@@ -12,6 +12,9 @@ import {RouterModule, Routes} from "@angular/router";
 import {ItemsModule} from "./items/items.module";
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+// RECOMMENDED
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import {TabsModule} from "ngx-bootstrap";
 
 const routes: Routes = [
   {path: '', redirectTo: '/item', pathMatch: 'full'},
@@ -41,6 +44,8 @@ const routes: Routes = [
     HttpClientModule,
     MDBBootstrapModule.forRoot(),
     RouterModule.forRoot(routes),
+    AccordionModule.forRoot(),
+    TabsModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
