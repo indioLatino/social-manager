@@ -15,7 +15,7 @@ import {TabsetComponent, TabDirective} from 'ngx-bootstrap/tabs';
 })
 export class ItemDetailComponent implements OnInit, AfterViewInit {
   private item: Item = new Item();
-  private instructionsReady: Boolean = false;
+  private itemLoaded: Boolean = false;
   private id: string;
 
   disableSwitching: boolean;
@@ -40,13 +40,17 @@ export class ItemDetailComponent implements OnInit, AfterViewInit {
     this.getItemDetail(this.id);
   }
 
+  /**
+   * Retrieves the item identified with the id
+   * @param id: Identifier of the item
+   */
   getItemDetail(id) {
     console.log("id: " + id);
     this.rest.getItemDetail(id).subscribe(itemm => {
       this.itemService.setItem(itemm as Item);
       console.log("getItemDetail executed");
       this.item = itemm as Item;
-      this.instructionsReady = true;
+      this.itemLoaded = true;
     });
   }
 
@@ -58,7 +62,7 @@ export class ItemDetailComponent implements OnInit, AfterViewInit {
         const liArr = Array.from(this.tabsetEl.nativeElement.querySelectorAll('ul li'));
         let tabIndex;
         liArr.forEach((li, i) => {
-          if (li.contains($event.target)) {
+          if ((li as string).includes($event.target)) {
             tabIndex = i;
           }
         });

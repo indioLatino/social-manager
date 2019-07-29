@@ -75,14 +75,14 @@
 
       <tab tab2 heading="{{'item-detail.ingredients'|translate}}" id="second"
            select="!disableSwitching && second.active = true" #second>
-        <div>
+        <div *ngIf="itemLoaded">
           <app-product-list></app-product-list>
         </div>
       </tab>
 
       <tab tab3 heading="{{'item-detail.instructions'|translate}}" id="third"
            select="!disableSwitching && third.active = true" #third>
-        <div *ngIf="instructionsReady">
+        <div *ngIf="itemLoaded">
           <app-instruction-list></app-instruction-list>
         </div>
       </tab>

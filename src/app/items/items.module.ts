@@ -8,6 +8,7 @@ import {RouterModule, Routes} from "@angular/router";
 import { CreatorComponent } from './creator/creator.component';
 import {TranslateModule} from "@ngx-translate/core";
 import { ProductListComponent } from './product-list/product-list/product-list.component';
+import { WavesModule, TableModule } from 'angular-bootstrap-md';
 // RECOMMENDED
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import {TabsModule} from "ngx-bootstrap";
@@ -29,7 +30,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     AccordionModule,
     TabsModule,
-    TranslateModule
+    TranslateModule,
+    TableModule,
+    WavesModule
   ],
   declarations: [
     NoteBookComponent,

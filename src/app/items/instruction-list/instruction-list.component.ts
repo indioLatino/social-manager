@@ -17,7 +17,6 @@ export class InstructionListComponent implements OnInit {
   private screenInstructionArray: Instruction[] = [];
   private chunkFactor: number = 3; //Number from where the sortedInstructionArray is going to be chunk
   private itemService: ItemService;
-  private instructionsLoaded: Boolean = false;
 
   constructor(itemService: ItemService) {
     this.itemService = itemService;
