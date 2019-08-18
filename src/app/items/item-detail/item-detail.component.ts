@@ -7,6 +7,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {ItemService} from "../services/item.service";
 import {TabsetComponent, TabDirective} from 'ngx-bootstrap/tabs';
+import {ItemDetailResponse} from "../../model/responses/item-detail-response";
 
 @Component({
   selector: 'app-item-detail',
@@ -46,10 +47,10 @@ export class ItemDetailComponent implements OnInit, AfterViewInit {
    */
   getItemDetail(id) {
     console.log("id: " + id);
-    this.rest.getItemDetail(id).subscribe(itemm => {
-      this.itemService.setItem(itemm as Item);
+    this.rest.getItemDetail(id).subscribe(itemDetailResponse => {
+      this.itemService.setItemDetailResponse(itemDetailResponse as ItemDetailResponse);
       console.log("getItemDetail executed");
-      this.item = itemm as Item;
+      this.item = itemDetailResponse.item as Item;
       this.itemLoaded = true;
     });
   }

@@ -15,6 +15,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 // RECOMMENDED
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import {TabsModule} from "ngx-bootstrap";
+import { PricingComponent } from './pricing/pricing/pricing.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/item', pathMatch: 'full'},
@@ -28,13 +29,23 @@ const routes: Routes = [
       }
     ]
   },
+  {
+    path: '',
+    component: AppComponent,
+    children: [
+      {
+        path: 'private',
+        loadChildren: () => import('./private-area/private-area.module').then(m => m.PrivateAreaModule)
+      }
+    ]
+  },
   {path: '**', redirectTo: '/item'}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
+    HeaderComponent
   ],
   imports: [
     ItemsModule,

@@ -23,7 +23,7 @@ export class InstructionListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.item = this.itemService.item;
+    this.item = this.itemService.itemDetailResponse.item;
     this.extractInstructionsList();
   }
 

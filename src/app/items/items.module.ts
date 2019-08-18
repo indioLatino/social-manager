@@ -12,6 +12,7 @@ import { WavesModule, TableModule } from 'angular-bootstrap-md';
 // RECOMMENDED
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import {TabsModule} from "ngx-bootstrap";
+import {PricingComponent} from "../pricing/pricing/pricing.component";
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
     WavesModule
   ],
   declarations: [
+    PricingComponent,
     NoteBookComponent,
     InstructionListComponent,
     ItemsListComponent,

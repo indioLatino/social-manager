@@ -25,7 +25,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.item = this.itemService.item;
+    this.item = this.itemService.itemDetailResponse.item;
     this.extractProductsList();
   }
 
