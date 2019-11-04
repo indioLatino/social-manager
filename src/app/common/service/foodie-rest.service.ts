@@ -7,6 +7,7 @@ import { map, catchError, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class FoodieRestService {
+  //todo: Use environment variable instead
   readonly endpoint = 'http://localhost:1234/item/';
   readonly httpOptions = {
     headers: new HttpHeaders({

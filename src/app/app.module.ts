@@ -5,7 +5,6 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {HeaderComponent} from './header/header.component';
-import {MatToolbarModule} from '@angular/material';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {RouterModule, Routes} from "@angular/router";
@@ -51,7 +50,6 @@ const routes: Routes = [
     ItemsModule,
     BrowserModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
     HttpClientModule,
     MDBBootstrapModule.forRoot(),
     RouterModule.forRoot(routes),

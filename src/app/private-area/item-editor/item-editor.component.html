@@ -1,1 +1,45 @@
-<p>item-editor works!</p>
+<!-- Default form contact -->
+<form class="text-center border border-light p-5 mt-5">
+
+  <p class="h4 mb-4">{{'item-editor.creationTitle'|translate}}</p>
+
+  <!-- Name -->
+  <input type="text" id="defaultContactFormName" class="form-control mb-4" placeholder="{{'item-editor.title'|translate}}">
+
+  <!-- Email -->
+  <input type="email" id="defaultContactFormEmail" class="form-control mb-4" placeholder="E-mail">
+
+  <!-- Message -->
+  <div class="form-group">
+    <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="{{'item-editor.description'|translate}}"></textarea>
+  </div>
+
+  <!-- Ingrediente -->
+  <input list="browsers" name="browser" class="form-control mb-4" placeholder="Ingredient">
+  <datalist id="browsers">
+    <option *ngFor="let option of grocery">{{option.translations["en-GB"]}}</option>
+  </datalist>
+
+  <!-- Copy -->
+  <div class="row">
+    <div class="col-md-6 mx-auto d-flex justify-content-center">
+      <mdb-checkbox [default]="true" class="mb-4">Send me a copy of this message</mdb-checkbox>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="btn" id="upload_image">Upload image</div>
+
+
+
+
+
+
+  <!-- Send button -->
+  <button mdbBtn color="info" block="true" type="submit">Send</button>
+
+</form>
+<!-- Default form contact -->

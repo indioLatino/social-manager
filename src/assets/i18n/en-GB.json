@@ -4,5 +4,12 @@
     "instructions": "Instructions",
     "description": "Description"
   },
-  "createdBy": "By: "
+  "createdBy": "By: ",
+  "item-editor": {
+    "title": "Title",
+    "description": "Description",
+    "creationTitle": "Recipe creation",
+    "detailTitle": "Recipe Details",
+    "editionTitle": "Recipe edition"
+  }
 }
