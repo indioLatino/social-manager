@@ -8,6 +8,7 @@
   "item-editor": {
     "title": "Title",
     "description": "Description",
+    "mainImage": "Main image",
     "creationTitle": "Recipe creation",
     "detailTitle": "Recipe Details",
     "editionTitle": "Recipe edition"

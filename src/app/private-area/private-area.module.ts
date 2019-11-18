@@ -5,6 +5,8 @@ import {RouterModule, Routes} from "@angular/router";
 import { PersonalSpaceComponent } from './personal-space/personal-space.component';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {TranslateModule} from "@ngx-translate/core";
+import { ReactiveFormsModule } from '@angular/forms';
+import {TabsModule} from "ngx-bootstrap";
 
 const routes: Routes = [
   {
@@ -21,6 +23,8 @@ const routes: Routes = [
   declarations: [ItemEditorComponent, PersonalSpaceComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    TabsModule,
     RouterModule.forChild(routes),
     MDBBootstrapModule.forRoot(),
     TranslateModule

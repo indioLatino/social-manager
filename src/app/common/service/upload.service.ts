@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as AWS from 'aws-sdk/global';
-import * as S3 from 'aws-sdk/clients/s3';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
@@ -9,7 +7,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 export class UploadService {
 
   //todo: Use environment variable instead
-  readonly endpoint = 'http://localhost:1234/fileUploader/uploadFileToS3';
+  readonly endpoint = 'http://localhost:1234/aws/awsSignPostRequest';
   readonly httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'

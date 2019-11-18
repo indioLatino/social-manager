@@ -1,45 +1,85 @@
+
+
 <!-- Default form contact -->
-<form class="text-center border border-light p-5 mt-5">
+<form class="text-center border border-light p-5 mt-5" [formGroup]="itemForm">
+  <br>
+  <h3 align="left" class="ml-4">
+    <strong>{{'item-editor.creationTitle'|translate}}</strong>
+    <small class="text-muted"> With faded secondary text</small>
+  </h3>
+  <br>
+  <!-- start container -->
+  <div class="container">
+    <!-- Row -->
+    <div class="row">
+      <!-- Col -->
+      <div class="col-sm-4">
+        <img src={{formImage}} class="img-fluid" alt="Responsive image">
+        <input type="text"  class="form-control mb-3" placeholder="{{'item-editor.mainImage'|translate}}" formControlName="itemImage">
+        <button type="button" class="btn btn-success col-sm-11" id="upload_image">Upload image</button>
+      </div>
+      <!-- Col -->
+      <div class="col-sm-8">
+        <!-- Tittle -->
+        <input type="text" id="defaultContactFormName" class="form-control mb-4" placeholder="{{'item-editor.title'|translate}}">
 
-  <p class="h4 mb-4">{{'item-editor.creationTitle'|translate}}</p>
-
-  <!-- Name -->
-  <input type="text" id="defaultContactFormName" class="form-control mb-4" placeholder="{{'item-editor.title'|translate}}">
-
-  <!-- Email -->
-  <input type="email" id="defaultContactFormEmail" class="form-control mb-4" placeholder="E-mail">
-
-  <!-- Message -->
-  <div class="form-group">
-    <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="{{'item-editor.description'|translate}}"></textarea>
-  </div>
-
-  <!-- Ingrediente -->
-  <input list="browsers" name="browser" class="form-control mb-4" placeholder="Ingredient">
-  <datalist id="browsers">
-    <option *ngFor="let option of grocery">{{option.translations["en-GB"]}}</option>
-  </datalist>
-
-  <!-- Copy -->
-  <div class="row">
-    <div class="col-md-6 mx-auto d-flex justify-content-center">
-      <mdb-checkbox [default]="true" class="mb-4">Send me a copy of this message</mdb-checkbox>
+        <!-- Description -->
+        <div class="form-group">
+          <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="11" placeholder="{{'item-editor.description'|translate}}"></textarea>
+        </div>
+      </div>
     </div>
+    <!-- init tabs -->
+    <tabset (click)="confirmTabSwitch($event)" #tabset>
+      <!-- Products tab init -->
+      <tab tab2 heading="{{'item-detail.ingredients'|translate}}" id="first"
+           select="!disableSwitching && second.active = true" #first>
+        <div class="mt-2" formArrayName="products">
+          <h3>Enter the product</h3>
+          <button (click)="addNewProduct()">Add new product</button>
+
+          <div class = "row" *ngFor="let product of products.controls; let i=index">
+            <input list="browsers" name="browser" class="form-control mb-4" placeholder="Ingredient {{i+1}}" [formControlName]="i">
+          </div>
+        </div>
+        <datalist id="browsers">
+          <option *ngFor="let option of grocery">{{option.translations["en-GB"]}}</option>
+        </datalist>
+      </tab>
+      <!-- Instructions tab init -->
+      <tab tab3 heading="{{'item-detail.instructions'|translate}}" id="second"
+           select="!disableSwitching && third.active = true" #second>
+      </tab>
+    <!-- End tabs -->
+    </tabset>
+
+  <!-- End container-->
   </div>
 
 
 
 
 
-  <div class="btn" id="upload_image">Upload image</div>
 
 
 
 
+
+  <!--<div class="form-group">
+    <div class="btn" id="upload_image">Upload image</div>
+  </div>-->
+
+
+
+
+  <!--<div class="form-group">
+    <input type="text"  class="form-control mb-3" placeholder="{{'item-editor.mainImage'|translate}}" formControlName="itemImage">
+    <div class="btn mb-1" id="upload_image">Upload image</div>
+  </div>-->
 
 
   <!-- Send button -->
   <button mdbBtn color="info" block="true" type="submit">Send</button>
-
+<!-- End form -->
 </form>
-<!-- Default form contact -->
+
