@@ -52,6 +52,13 @@ deleteItem (id): Observable<any> {
   );
 }
 
+getProducts (): Observable<any> {
+    //Todo: use variable for the url
+    return this.http.get('http://localhost:1234/product/products', this.httpOptions).pipe(
+      map(this.extractData)
+    );
+}
+
 private handleError<T> (operation = 'operation', result?: T) {
   return (error: any): Observable<T> => {
 

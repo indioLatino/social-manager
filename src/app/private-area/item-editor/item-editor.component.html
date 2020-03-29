@@ -35,12 +35,10 @@
       <tab tab2 heading="{{'item-detail.ingredients'|translate}}" id="first"
            select="!disableSwitching && second.active = true" #first>
         <div class="mt-2" formArrayName="products">
-          <h3>Enter the product</h3>
-          <button (click)="addNewProduct()">Add new product</button>
-
           <div class = "row" *ngFor="let product of products.controls; let i=index">
             <input list="browsers" name="browser" class="form-control mb-4" placeholder="Ingredient {{i+1}}" [formControlName]="i">
           </div>
+          <button (click)="addNewProduct()">Add new ingredient</button>
         </div>
         <datalist id="browsers">
           <option *ngFor="let option of grocery">{{option.translations["en-GB"]}}</option>

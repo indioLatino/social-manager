@@ -2,6 +2,8 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { s3 } from 'fine-uploader/lib/core/s3';
 import {FormBuilder, FormArray, FormGroup, Validators} from "@angular/forms";
 import {TabDirective, TabsetComponent} from "ngx-bootstrap";
+import {FoodieRestService} from "../../common/service/foodie-rest.service";
+import { ValidateInList } from '../../validators/in-list.validator';
 
 
 @Component({
@@ -61,6 +63,7 @@ export class ItemEditorComponent implements OnInit {
   itemForm: FormGroup;
   //Bucket where the images are uploaded todo: use a global env property for this
   bucketName = 'foodieapi';
+  private foodieService: FoodieRestService;
   uploader: any;
   //Default image when no image is loaded todo: load this as a environment variable
   formImage: string = "https://foodieapi.s3.amazonaws.com/recipes/f5fcadb4-53fd-4795-ac4d-47f2af45fb97";
@@ -71,14 +74,20 @@ export class ItemEditorComponent implements OnInit {
   @ViewChild('first', {static: true}) first: TabDirective;
   @ViewChild('second', {static: true}) second: TabDirective;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private service:FoodieRestService) {
     this.itemForm = this.fb.group({
       itemTitle: ['', Validators.required],
       itemDescription: ['', Validators.required],
       itemImage: ['', Validators.required],
       products: this.fb.array([
-        this.fb.control('')
+        //todo: important get the array of translations
+      //  this.fb.control('', [ValidateInList([])])
       ])
+    });
+    this.foodieService = service;
+    this.foodieService.getProducts().subscribe((response) => {
+      this.grocery = response.response;
+      console.log("Los nombres son: " + response);
     });
   }
 
