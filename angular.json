@@ -130,5 +130,8 @@
       }
     }
   },
-  "defaultProject": "social-manager"
+  "defaultProject": "social-manager",
+  "cli": {
+    "analytics": false
+  }
 }
