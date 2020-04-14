@@ -1,9 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { s3 } from 'fine-uploader/lib/core/s3';
-import {FormBuilder, FormArray, FormGroup, Validators} from "@angular/forms";
-import {TabDirective, TabsetComponent} from "ngx-bootstrap";
-import {FoodieRestService} from "../../common/service/foodie-rest.service";
-import { ValidateInList } from '../../validators/in-list.validator';
+import {s3} from 'fine-uploader/lib/core/s3';
+import {FormBuilder, FormArray, FormGroup, Validators, FormControl} from '@angular/forms';
+import {TabDirective, TabsetComponent} from 'ngx-bootstrap';
+import {FoodieRestService} from '../../common/service/foodie-rest.service';
+import {ValidateInList} from '../../validators/in-list.validator';
+import {Item} from '../../model/item';
+import {Product} from '../../model/product';
+import {Creator} from '../../model/creator';
 
 
 @Component({
@@ -12,83 +15,143 @@ import { ValidateInList } from '../../validators/in-list.validator';
   styleUrls: ['./item-editor.component.css']
 })
 export class ItemEditorComponent implements OnInit {
-
-  //List of available products //todo: load this from the db
-  private grocery = [
+  private measurementUnits = [
     {
-      "code":"001",
-      "translations":{
-        "en-GB":"Milk",
-        "es-ES":"Leche",
-        "fr-FR":"Lait"
+      'code': '001',
+      'translations': {
+        'en-GB': 'Litre',
+        'es-ES': 'Leche',
+        'fr-FR': 'Litre'
       }
-    },{
-      "code":"002",
-      "translations":{
-        "en-GB":"Eggs",
-        "es-ES":"Huevos",
-        "fr-FR":"Oeufs"
+    },
+    {
+      'code': '002',
+      'translations': {
+        'en-GB': 'Kilogram',
+        'es-ES': 'Kilogramo',
+        'fr-FR': 'Kilogramme'
       }
-    },{
-      "code":"003",
-      "translations":{
-        "en-GB":"Olive oil",
-        "es-ES":"Aceite de oliva",
-        "fr-FR":"Huile d'olive"
+    },
+    {
+      'code': '003',
+      'translations': {
+        'en-GB': 'Pound',
+        'es-ES': 'Libra',
+        'fr-FR': 'Livre'
       }
-    },{
-      "code":"004",
-      "translations":{
-        "en-GB":"Beans",
-        "es-ES":"Frijoles",
-        "fr-FR":"Haricots"
+    },
+    {
+      'code': '004',
+      'translations': {
+        'en-GB': 'Cup',
+        'es-ES': 'Taza',
+        'fr-FR': 'Coupe'
       }
-    },{
-      "code":"005",
-      "translations":{
-        "en-GB":"Avocado",
-        "es-ES":"Aguacate",
-        "fr-FR":"Avocat"
+    },
+    {
+      'code': '005',
+      'translations': {
+        'en-GB': 'Ounce',
+        'es-ES': 'Onza',
+        'fr-FR': 'Once'
       }
-    },{
-      "code":"006",
-      "translations":{
-        "en-GB":"Bacon",
-        "es-ES":"Bacon",
-        "fr-FR":"Bacon"
+    },
+    {
+      'code': '006',
+      'translations': {
+        'en-GB': 'Gram',
+        'es-ES': 'Gramo',
+        'fr-FR': 'Gramme'
+      }
+    },
+    {
+      'code': '007',
+      'translations': {
+        'en-GB': 'Milk',
+        'es-ES': 'Cucharilla',
+        'fr-FR': 'cuillère à café'
       }
     }
   ];
-  //Form object that contains all data captured in this component
+
+  // List of available products //todo: load this from the db
+  private grocery = [
+    {
+      'code': '001',
+      'translations': {
+        'en-GB': 'Milk',
+        'es-ES': 'Leche',
+        'fr-FR': 'Lait'
+      }
+    }, {
+      'code': '002',
+      'translations': {
+        'en-GB': 'Eggs',
+        'es-ES': 'Huevos',
+        'fr-FR': 'Oeufs'
+      }
+    }, {
+      'code': '003',
+      'translations': {
+        'en-GB': 'Olive oil',
+        'es-ES': 'Aceite de oliva',
+        'fr-FR': 'Huile d\'olive'
+      }
+    }, {
+      'code': '004',
+      'translations': {
+        'en-GB': 'Beans',
+        'es-ES': 'Frijoles',
+        'fr-FR': 'Haricots'
+      }
+    }, {
+      'code': '005',
+      'translations': {
+        'en-GB': 'Avocado',
+        'es-ES': 'Aguacate',
+        'fr-FR': 'Avocat'
+      }
+    }, {
+      'code': '006',
+      'translations': {
+        'en-GB': 'Bacon',
+        'es-ES': 'Bacon',
+        'fr-FR': 'Bacon'
+      }
+    }
+  ];
+  // Form object that contains all data captured in this component
   itemForm: FormGroup;
-  //Bucket where the images are uploaded todo: use a global env property for this
+  // Bucket where the images are uploaded todo: use a global env property for this
   bucketName = 'foodieapi';
   private foodieService: FoodieRestService;
   uploader: any;
-  //Default image when no image is loaded todo: load this as a environment variable
-  formImage: string = "https://foodieapi.s3.amazonaws.com/recipes/f5fcadb4-53fd-4795-ac4d-47f2af45fb97";
-  //Tabs related variables
+  // Default image when no image is loaded todo: load this as a environment variable
+  formImage = 'https://foodieapi.s3.amazonaws.com/recipes/f5fcadb4-53fd-4795-ac4d-47f2af45fb97';
+  // Tabs related variables
   disableSwitching: boolean;
   @ViewChild('tabset', {read: ElementRef, static: true}) tabsetEl: ElementRef;
   @ViewChild('tabset', {static: true}) tabset: TabsetComponent;
   @ViewChild('first', {static: true}) first: TabDirective;
   @ViewChild('second', {static: true}) second: TabDirective;
 
-  constructor(private fb: FormBuilder, private service:FoodieRestService) {
+  constructor(private fb: FormBuilder, private service: FoodieRestService) {
     this.itemForm = this.fb.group({
-      itemTitle: ['', Validators.required],
+      itemName: ['', Validators.required],
       itemDescription: ['', Validators.required],
-      itemImage: ['', Validators.required],
-      products: this.fb.array([
-        //todo: important get the array of translations
+      itemMainImage: ['', Validators.required],
+      // todo: important get the array of translations
       //  this.fb.control('', [ValidateInList([])])
-      ])
+      productList: this.fb.array([]),
+      instructions: this.fb.array([]),
     });
     this.foodieService = service;
     this.foodieService.getProducts().subscribe((response) => {
       this.grocery = response.response;
-      console.log("Los nombres son: " + response);
+      console.log('Los nombres son: ' + response);
     });
+    // todo: recibir las medidas de la bdd
+    // this.measurementUnits = ...
   }
 
   ngOnInit() {
@@ -100,7 +163,7 @@ export class ItemEditorComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    let instance = this;
+    const instance = this;
     this.uploader = new s3.FineUploaderBasic({
       button: document.getElementById('upload_image'),
       debug: false,
@@ -111,19 +174,19 @@ export class ItemEditorComponent implements OnInit {
         sizeLimit: 5120000 // 50 kB = 50 * 1024 bytes
       },
       request: {
-        endpoint: 'https://' + instance.bucketName  +'.s3.amazonaws.com/',
+        endpoint: 'https://' + instance.bucketName + '.s3.amazonaws.com/',
         accessKey: 'AKIA4UZ6KTWAYO3ICQM5',
-        params: { 'Cache-Control': 'private, max-age=31536000, must-revalidate' }
+        params: {'Cache-Control': 'private, max-age=31536000, must-revalidate'}
       },
       signature: {
-        //todo: use a global env property for this
+        // todo: use a global env property for this
         endpoint: 'http://localhost:1234/aws/awsSignPostRequest/',
         version: 4,
         params: {
-          drift: ((new Date().getTimezoneOffset()*60*2) * 1000) - Date.now()
+          drift: ((new Date().getTimezoneOffset() * 60 * 2) * 1000) - Date.now()
         }
       },
-      //todo: Check what does this property do
+      // todo: Check what does this property do
       iframeSupport: {
         localBlankPagePath: '/somepage.html'
       },
@@ -134,7 +197,7 @@ export class ItemEditorComponent implements OnInit {
       objectProperties: {
         acl: 'public-read',
         region: 'eu-west-1',
-        key: function(fileId) {
+        key: function (fileId) {
           return 'recipes/' + this.getUuid(fileId);
         }
       },
@@ -144,11 +207,11 @@ export class ItemEditorComponent implements OnInit {
         },
         // onSubmitted: function(id, name) { alert('onSubmitted');},
         onComplete: function (id, name, responseJSON, maybeXhr) {
-          if(responseJSON.success) {
+          if (responseJSON.success) {
             console.log('upload complete', name);
-            let uploadUrl = 'https://' + instance.bucketName + '.s3.amazonaws.com/' + this.getKey(id);
+            const uploadUrl = 'https://' + instance.bucketName + '.s3.amazonaws.com/' + this.getKey(id);
             console.log('uploaded image url', uploadUrl);
-            instance.itemForm.controls['itemImage'].setValue(uploadUrl);
+            instance.itemForm.controls['itemMainImage'].setValue(uploadUrl);
             instance.formImage = uploadUrl;
           }
         },
@@ -166,12 +229,30 @@ export class ItemEditorComponent implements OnInit {
     });
   }
 
-  private get products(){
-    return this.itemForm.get("products") as FormArray;
+  private get productList() {
+    return this.itemForm.get('productList') as FormArray;
   }
 
-  private addNewProduct():void{
-    this.products.push(this.fb.control(""));
+  private get instructions() {
+    return this.itemForm.get('instructions') as FormArray;
+  }
+
+  // todo: check what validations apply for the controls in these two methods
+  private addNewInstruction(): void {
+    const instruction = new FormGroup({
+      instructionOrder: new FormControl({value: this.instructions.length + 1, disabled: true}),
+      instructionText: new FormControl('')
+    });
+    this.instructions.push(instruction);
+  }
+
+  private addNewProduct(): void {
+    const product = new FormGroup({
+      productName: new FormControl(''),
+      productMeasurement: new FormControl(''),
+      productUnit: new FormControl('')
+    });
+    this.productList.push(product);
   }
 
   confirmTabSwitch($event) {
@@ -193,4 +274,20 @@ export class ItemEditorComponent implements OnInit {
       }
     }
   }
+
+  onSubmit() {
+    // todo: load creator from database
+    const creator = new Creator();
+    // tslint:disable-next-line:max-line-length
+    creator.image = 'https://media.aweita.larepublica.pe/678x508/aweita/imagen/2018/02/08/noticia-por-que-krilin-tiene-6-puntos-en-la-frente-y-no-tiene-nariz-portada.jpg';
+    creator.name = 'Harol Melgar';
+    creator.userId = '5c966dd8a33edd0509aea042';
+    const item = this.itemForm.getRawValue() as Item;
+    item.creator = creator;
+    this.service.addItem(item).subscribe((response) => {
+      console.log(response);
+      // todo redirect to the customer profile
+    });
+  }
 }
+

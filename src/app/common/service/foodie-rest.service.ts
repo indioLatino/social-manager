@@ -39,6 +39,7 @@ addItem (item): Observable<any> {
 }
 
 updateItem (id, item): Observable<any> {
+    // todo: When the item is sent print it
   return this.http.put(this.endpoint + 'update?id=' + id, JSON.stringify(item), this.httpOptions).pipe(
     tap(_ => console.log(`updated item id=${id}`)),
     catchError(this.handleError<any>('updateItem'))
