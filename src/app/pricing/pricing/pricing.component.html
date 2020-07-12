@@ -1,0 +1,43 @@
+<div class="container">
+  <!--Section: Cards-->
+  <section class="text-center">
+
+    <div class="row mb-4 wow fadeIn" *ngIf="showPricingComponent">
+      <div class="col-md-2 mb-4" *ngFor = "let shoppingBasket of shoppingBaskets; let index = index;">
+
+
+
+        <!-- Card Wider -->
+        <div class="card card-cascade wider">
+
+          <!-- Card image -->
+          <div class="view view-cascade overlay">
+            <img  class="card-img-top" src="{{retailImages[shoppingBasket.retailId]}}" alt="Card image cap">
+            <a href="#!">
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+
+          <!-- Card content -->
+          <div class="card-body card-body-cascade text-center pb-0" *ngIf="totalAmounts">
+            <h5 class="blue-text pb-2">
+              <strong>
+
+                {{totalAmounts[index] | currency:'GBP':true:'1.0-2'}}
+            </strong></h5>
+
+          </div>
+
+        </div>
+        <!-- Card Wider -->
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </section>
+</div>

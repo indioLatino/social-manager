@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, ViewChild, AfterViewInit, AfterViewChecked} from '@angular/core';
+import {Component, OnInit, ViewChild, AfterViewInit, ElementRef} from '@angular/core';
 import {Instruction} from '../../model/instruction';
 import {Item} from '../../model/item';
 import {FoodieRestService} from '../../common/service/foodie-rest.service';
@@ -6,7 +6,8 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {ItemService} from "../services/item.service";
-import {InstructionListComponent} from "../instruction-list/instruction-list.component";
+import {TabsetComponent, TabDirective} from 'ngx-bootstrap/tabs';
+import {ItemDetailResponse} from "../../model/responses/item-detail-response";
 
 @Component({
   selector: 'app-item-detail',
@@ -15,8 +16,14 @@ import {InstructionListComponent} from "../instruction-list/instruction-list.com
 })
 export class ItemDetailComponent implements OnInit, AfterViewInit {
   private item: Item = new Item();
-  private instructionsReady: Boolean = false;
+  private itemLoaded: Boolean = false;
   private id: string;
+
+  disableSwitching: boolean;
+  @ViewChild('tabset', {read: ElementRef, static: true}) tabsetEl: ElementRef;
+  @ViewChild('tabset', {static: true}) tabset: TabsetComponent;
+  @ViewChild('first', {static: true}) first: TabDirective;
+  @ViewChild('second', {static: true}) second: TabDirective;
 
   constructor(private rest: FoodieRestService,
               private itemService: ItemService,
@@ -30,18 +37,42 @@ export class ItemDetailComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.getItemDetail(this.id);
   }
 
+  /**
+   * Retrieves the item identified with the id
+   * @param id: Identifier of the item
+   */
   getItemDetail(id) {
     console.log("id: " + id);
-    this.rest.getItemDetail(id).subscribe(itemm => {
-      this.itemService.setItem(itemm as Item);
+    this.rest.getItemDetail(id).subscribe(itemDetailResponse => {
+      this.itemService.setItemDetailResponse(itemDetailResponse as ItemDetailResponse);
       console.log("getItemDetail executed");
-      this.item = itemm as Item;
-      this.instructionsReady = true;
+      this.item = itemDetailResponse.item as Item;
+      this.itemLoaded = true;
     });
+  }
+
+  confirmTabSwitch($event) {
+    if (this.disableSwitching) {
+      const confirm = window.confirm('Discard changes and switch tab?');
+      if (confirm) {
+        this.disableSwitching = false;
+        const liArr = Array.from(this.tabsetEl.nativeElement.querySelectorAll('ul li'));
+        let tabIndex;
+        liArr.forEach((li, i) => {
+          if ((li as string).includes($event.target)) {
+            tabIndex = i;
+          }
+        });
+        console.log('tab index', tabIndex);
+        setTimeout(() => {
+          this.tabset.tabs[tabIndex].active = true;
+        });
+      }
+    }
   }
 
 }

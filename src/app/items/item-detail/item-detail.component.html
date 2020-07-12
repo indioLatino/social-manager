@@ -4,58 +4,91 @@
   <div class="jumbotron  bg-transparent">
 
 
-  <!-- Grid row -->
-  <h3 class="font-weight-bold mb-3 d-block d-xs-none ml-3"><strong>{{item.itemName}}</strong></h3>
-  <br>
-  <div class="row">
+    <!-- Grid row -->
+    <h3 class="font-weight-bold mb-3 d-block d-xs-none ml-3"><strong>{{item.itemName}}</strong></h3>
+    <br>
+    <div class="row">
 
 
-    <!-- Grid column -->
-    <div class="col-lg-8 col-xl-7">
+      <!-- Grid column -->
+      <div class="col-lg-8 col-xl-7">
 
-      <!-- Featured image -->
-      <div class="view overlay mb-lg-0 mb-4">
-        <img class="img-fluid  rounded z-depth-1-half" src="{{item.itemMainImage}}" alt="Sample image">
-        <a>
-          <div class="mask rgba-white-slight"></div>
-        </a>
+        <!-- Featured image -->
+        <div class="view overlay mb-lg-0 mb-4">
+          <img class="img-fluid  rounded z-depth-1-half" src="{{item.itemMainImage}}" alt="Sample image">
+          <a>
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+
+      </div>
+      <!-- Grid column -->
+      <div class="col-lg-4 col-xl-5">
+        <app-note-book></app-note-book>
       </div>
 
-    </div>
-    <!-- Grid column -->
-    <div class="col-lg-4 col-xl-5">
-      <app-note-book></app-note-book>
-    </div>
+      <!-- Grid column -->
+      <div class="col-lg-12 col-xl-12 px-4">
+        <!-- Post data -->
+        <!-- Social media -->
+        <!-- Linkedin -->
+        <div class="float-right mt-4">
+          <a class="fa-lg p-2 m-2 li-ic"><div *ngIf="item.creator">
+            <app-creator [creator] = item.creator></app-creator>
+          </div></a>
+          <a class="fa-lg p-2 m-2 li-ic"><i class="fab fa-linkedin-in"></i></a>
+          <!-- Twitter -->
+          <a class="fa-lg p-2 m-2 tw-ic"><i class="fab fa-twitter"></i></a>
+          <!-- Dribbble -->
+          <a class="fa-lg p-2 m-2 fb-ic"><i class="fab fa-facebook-f"></i></a>
+        </div>
 
-    <!-- Grid column -->
-    <div class="col-lg-12 col-xl-12 px-4">
-
-      <!-- Post title -->
-      <h3 class="font-weight-bold mb-3 d-none d-xs-block"><strong>{{item.itemName}}</strong></h3>
-      <!-- Excerpt -->
-      <p class="dark-grey-text mt-5">{{item.itemDescription}}</p>
-      <!-- Post data -->
-      <p>by <a class="font-weight-bold">Jessica Clark</a>, 19/04/2018</p>
-
-      <!-- Social media -->
-      <!-- Linkedin -->
-      <div class = "float-right mt-4">
-        <a class="fa-lg p-2 m-2 li-ic"><i class="fab fa-linkedin-in"></i></a>
-        <!-- Twitter -->
-        <a class="fa-lg p-2 m-2 tw-ic"><i class="fab fa-twitter"></i></a>
-        <!-- Dribbble -->
-        <a class="fa-lg p-2 m-2 fb-ic"><i class="fab fa-facebook-f"></i></a>
       </div>
+      <!-- Grid column -->
 
     </div>
-    <!-- Grid column -->
+    <!-- Grid row -->
+
+    <br>
+    <!--<accordion>
+      <accordion-group heading="{{'item-detail.ingredients'|translate}}">
+        <div>
+          <app-product-list></app-product-list>
+        </div>
+      </accordion-group>
+      <accordion-group heading="{{'item-detail.instructions'|translate}}">
+        <div *ngIf="instructionsReady">
+          <app-instruction-list></app-instruction-list>
+        </div>
+      </accordion-group>
+    </accordion>-->
+
+
+    <tabset (click)="confirmTabSwitch($event)" #tabset>
+      <tab tab1 heading="{{'item-detail.description'|translate}}" id="first" #first>
+        <!-- Post title -->
+        <h3 class="font-weight-bold mb-3 d-none d-xs-block"><strong>{{item.itemName}}</strong></h3>
+        <!-- Excerpt -->
+        <p class="dark-grey-text mt-5">{{item.itemDescription}}</p>
+
+      </tab>
+
+      <tab tab2 heading="{{'item-detail.ingredients'|translate}}" id="second"
+           select="!disableSwitching && second.active = true" #second>
+        <div *ngIf="itemLoaded">
+          <app-product-list></app-product-list>
+        </div>
+      </tab>
+
+      <tab tab3 heading="{{'item-detail.instructions'|translate}}" id="third"
+           select="!disableSwitching && third.active = true" #third>
+        <div *ngIf="itemLoaded">
+          <app-instruction-list></app-instruction-list>
+        </div>
+      </tab>
+    </tabset>
+    <div *ngIf="itemLoaded">
+      <app-pricing></app-pricing>
+    </div>
 
   </div>
-    <!-- Grid row -->
-    <div *ngIf="instructionsReady">
-      Abuelita
-
-      <app-instruction-list></app-instruction-list>
-    </div>
-
-</div>

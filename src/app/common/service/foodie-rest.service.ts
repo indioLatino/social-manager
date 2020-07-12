@@ -7,6 +7,7 @@ import { map, catchError, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class FoodieRestService {
+  //todo: Use environment variable instead
   readonly endpoint = 'http://localhost:1234/item/';
   readonly httpOptions = {
     headers: new HttpHeaders({
@@ -38,6 +39,7 @@ addItem (item): Observable<any> {
 }
 
 updateItem (id, item): Observable<any> {
+    // todo: When the item is sent print it
   return this.http.put(this.endpoint + 'update?id=' + id, JSON.stringify(item), this.httpOptions).pipe(
     tap(_ => console.log(`updated item id=${id}`)),
     catchError(this.handleError<any>('updateItem'))
@@ -49,6 +51,13 @@ deleteItem (id): Observable<any> {
     tap(_ => console.log(`deleted item id=${id}`)),
     catchError(this.handleError<any>('deleteItem'))
   );
+}
+
+getProducts (): Observable<any> {
+    //Todo: use variable for the url
+    return this.http.get('http://localhost:1234/product/products', this.httpOptions).pipe(
+      map(this.extractData)
+    );
 }
 
 private handleError<T> (operation = 'operation', result?: T) {
