@@ -1,0 +1,15 @@
+<table mdbTable striped="true">
+  <thead>
+  <tr>
+    <th *ngFor="let elem of headElements" scope="col">
+      {{elem}}
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr mdbTableCol *ngFor="let product of productsArray">
+    <td>{{product.productName}}</td>
+    <td>{{product.productMeasurement}}</td>
+    <td>{{product.productUnit}}</td>
+  </tbody>
+</table>

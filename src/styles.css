@@ -1,6 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
+
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  /* font-family: courier, monospace; */
+ }
+/*market component*/
+.navbar.navigation-header{
+  background-color: #0DE093;
+  color:#FFFFFF;
+  font-family: courier, monospace;
+}
