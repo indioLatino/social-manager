@@ -15,6 +15,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import {TabsModule} from "ngx-bootstrap";
 import { PricingComponent } from './pricing/pricing/pricing.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/item', pathMatch: 'full'},
@@ -38,13 +39,24 @@ const routes: Routes = [
       }
     ]
   },
+  {
+    path: '',
+    component: AppComponent,
+    children: [
+      {
+        path: 'authentication',
+        loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
+      }
+    ]
+  },
   {path: '**', redirectTo: '/item'}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    AuthenticationComponent
   ],
   imports: [
     ItemsModule,
