@@ -6,7 +6,7 @@ import { PersonalSpaceComponent } from './personal-space/personal-space.componen
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {TranslateModule} from "@ngx-translate/core";
 import { ReactiveFormsModule } from '@angular/forms';
-import {TabsModule} from "ngx-bootstrap";
+import {TabsModule} from "ngx-bootstrap/tabs";
 
 const routes: Routes = [
   {
@@ -15,6 +15,10 @@ const routes: Routes = [
   },
   {
     path: 'editor/:id',
+    component: ItemEditorComponent
+  },
+  {
+    path: 'editor',
     component: ItemEditorComponent
   }
 ];

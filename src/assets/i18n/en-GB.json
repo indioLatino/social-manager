@@ -11,6 +11,9 @@
     "mainImage": "Main image",
     "creationTitle": "Recipe creation",
     "detailTitle": "Recipe Details",
-    "editionTitle": "Recipe edition"
+    "editionTitle": "Recipe edition",
+    "uploadButtonText1": "Choose file...",
+    "addIngredientButton": "Add ingredient",
+    "addStep": "Add step"
   }
 }

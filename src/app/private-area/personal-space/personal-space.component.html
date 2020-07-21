@@ -1,68 +1,46 @@
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-<p>personal-space works!</p>
-
-
-
+<form class="text-center border border-light p-5 mt-5" [formGroup]="userForm">
+  <!-- start container -->
+  <div class="container">
+    <!-- TITTLE -->
+    <br>
+    <h3 align="left" class="ml-4">
+      <!--<strong>{{'item-editor.creationTitle'|translate}}</strong>-->
+      <strong>Personal area</strong>
+    </h3>
+    <br>
+    <div class="row">
+      <!-- Col IMAGE -->
+      <div class="col-sm-4">
+        <img [src]="formImage" class="img-fluid" alt="Responsive image">
+        <input type="text" class="form-control mb-3" placeholder="{{'item-editor.mainImage'|translate}}"
+               formControlName="userProfilePicture" hidden>
+        <div class="custom-file">
+          <button type="button" class="custom-file-input" id="upload_image"></button>
+          <label class="custom-file-label" for="upload_image">{{'item-editor.uploadButtonText1'|translate}}</label>
+          <div class="invalid-feedback">Example invalid custom file feedback</div>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <!-- Tittle -->
+        <input type="text" class="form-control mb-4"
+               placeholder="Name" formControlName="userName">
+        <input type="text" class="form-control mb-4"
+               placeholder="Last Name" formControlName="userLastName">
+        <input type="text" class="form-control mb-4"
+               placeholder="Email" formControlName="userEmail">
+        <input type="text" class="form-control mb-4"
+               placeholder="Nickname" formControlName="userNickname" hidden>
+        <input type="text" class="form-control mb-4"
+               placeholder="Registration date" formControlName="userRegistrationDate" hidden>
+        <input type="text" class="form-control mb-4"
+               placeholder="Number of posts" formControlName="userPostsNumber" hidden>
+        <input type="text" class="form-control mb-4"
+               placeholder="Gender" formControlName="userGender">
+      </div>
+    </div>
+    <!-- Send button -->
+    <button mdbBtn color="info" block="true" type="submit" class="btn btn-success col-sm-2 mt-3" style="float: right;"
+            (click)="onSubmit()" [disabled]="userForm.invalid">Update
+    </button>
+  </div>
+</form>

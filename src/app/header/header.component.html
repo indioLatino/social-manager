@@ -32,10 +32,19 @@
       <li class="nav-item">
         <a class="nav-link">
           <div class="btn-group" mdbDropdown>
-            <mdb-icon fas icon="user" mdbDropdownToggle></mdb-icon>
+            <a mdbDropdownToggle>{{foodieUser.userName}} {{foodieUser.userLastName}} <i class="fas fa-user"></i></a>
+            <!--<mdb-icon fas icon="user" mdbDropdownToggle></mdb-icon>-->
             <div class="dropdown-menu dropdown-menu-right dropdown-primary">
-              <a class="dropdown-item" href="/authentication/login">Login</a>
-              <a class="dropdown-item" href="#">Sign up</a>
+              <div *ngIf="!foodieUser.userName">
+                <a class="dropdown-item" [routerLink]="['/authentication', 'login']">Login</a>
+                <a class="dropdown-item" [routerLink]="['/authentication', 'register']">Sign up</a>
+              </div>
+              <div *ngIf="foodieUser.userName">
+                <a class="dropdown-item" [routerLink]="['/private']">My account</a><!--No implementada-->
+                <a class="dropdown-item" [routerLink]="['/private/editor', 'register']">My recipes</a><!--No implementada-->
+                <a class="dropdown-item" [routerLink]="['/private/editor']">New recipe</a><!--No implementada-->
+                <a class="dropdown-item" [routerLink]="['/authentication', 'register']">Log out</a><!--No implementada-->
+              </div>
               <!--<a class="dropdown-item" href="#">Something else here</a>
               <div class="divider dropdown-divider"></div>
               <a class="dropdown-item" href="#">Separated link</a>-->

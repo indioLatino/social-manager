@@ -1,27 +1,38 @@
 <!-- Default form contact -->
 <form class="text-center border border-light p-5 mt-5" [formGroup]="itemForm">
-  <br>
-  <h3 align="left" class="ml-4">
-    <strong>{{'item-editor.creationTitle'|translate}}</strong>
-    <!--<small class="text-muted"> With faded secondary text</small>-->
-  </h3>
-  <br>
   <!-- start container -->
   <div class="container">
+
+    <!-- TITTLE -->
+    <br>
+    <h3 align="left" class="ml-4">
+      <strong>{{'item-editor.creationTitle'|translate}}</strong>
+    </h3>
+    <br>
+
     <!-- Row -->
     <div class="row">
-      <!-- Col -->
+      <!-- Col IMAGE -->
       <div class="col-sm-4">
         <img src={{formImage}} class="img-fluid" alt="Responsive image">
         <input type="text" class="form-control mb-3" placeholder="{{'item-editor.mainImage'|translate}}"
-               formControlName="itemMainImage">
-        <button type="button" class="btn btn-success col-sm-11" id="upload_image">Upload image</button>
+               formControlName="itemMainImage" hidden>
+        <div class="custom-file">
+          <button type="button" class="custom-file-input" id="upload_image"
+                  placeholder="{{'item-editor.mainImage'|translate}}"></button>
+          <label class="custom-file-label" for="upload_image">{{'item-editor.uploadButtonText1'|translate}}</label>
+          <div class="invalid-feedback">Example invalid custom file feedback</div>
+        </div>
       </div>
-      <!-- Col -->
+      <!-- Col RECIPE NAME  AND DESCRIPTION-->
       <div class="col-sm-8">
         <!-- Tittle -->
         <input type="text" id="defaultContactFormName" class="form-control mb-4"
                placeholder="{{'item-editor.title'|translate}}" formControlName="itemName">
+        <!-- todo: implement error messages for validations -->
+        <!--<div *ngIf="itemForm.get('itemName').errors.required">
+          El título es obligatorio
+        </div>-->
 
         <!-- Description -->
         <div class="form-group">
@@ -30,7 +41,9 @@
         </div>
       </div>
     </div>
-    <!-- init tabs -->
+
+
+    <!-- TABS todo: think of moving this to its own component-->
     <tabset (click)="confirmTabSwitch($event)" #tabset>
       <!-- Products tab init -->
       <tab tab2 heading="{{'item-detail.ingredients'|translate}}" id="first"
@@ -44,8 +57,10 @@
             <input list="measurementUnitsBrowser" name="browserMeasurementUnits" class="form-control col-2 m-3"
                    placeholder="Measurement unit" formControlName='productUnit'>
           </div>
-          <!-- todo: use translation label-->
-          <button (click)="addNewProduct()">Add new ingredient</button>
+          <div class="text-left">
+            <button (click)="addNewProduct()"
+                    class="btn btn-light col-sm-2 mt-3">{{'item-editor.addIngredientButton'|translate}}</button>
+          </div>
         </div>
         <datalist id="browsers">
           <option *ngFor="let option of grocery">{{option.translations["en-GB"]}}</option>
@@ -59,34 +74,26 @@
            select="!disableSwitching && third.active = true" #second>
         <div class="mt-2" formArrayName="instructions">
           <div class="row" *ngFor="let instruction of instructions.controls; let i=index;" formGroupName="{{i}}">
-            <input type="text" formControlName="instructionOrder">
-            <textarea class="form-control mb-4" placeholder="Instruction {{i+1}}"
+            <input type="text" formControlName="instructionOrder" hidden>
+            <textarea class="form-control ml-1" placeholder="Instruction {{i+1}}"
                       formControlName="instructionText"></textarea>
           </div>
-          <!-- todo: use translation label-->
-          <button (click)="addNewInstruction()">Add new instruction</button>
+          <div class="text-left">
+            <button (click)="addNewInstruction()"
+                    class="btn btn-light col-sm-2 mt-3">{{'item-editor.addStep'|translate}}</button>
+          </div>
         </div>
       </tab>
       <!-- End tabs -->
     </tabset>
 
+    <!-- Send button -->
+    <button mdbBtn color="info" block="true" type="submit" class="btn btn-success col-sm-2 mt-3" style="float: right;"
+            (click)="onSubmit()" [disabled]="itemForm.invalid">Create
+    </button>
+
     <!-- End container-->
   </div>
-
-
-  <!--<div class="form-group">
-    <div class="btn" id="upload_image">Upload image</div>
-  </div>-->
-
-
-  <!--<div class="form-group">
-    <input type="text"  class="form-control mb-3" placeholder="{{'item-editor.mainImage'|translate}}" formControlName="itemImage">
-    <div class="btn mb-1" id="upload_image">Upload image</div>
-  </div>-->
-
-
-  <!-- Send button -->
-  <button mdbBtn color="info" block="true" type="submit" (click)="onSubmit()">Send</button>
   <!-- End form -->
 </form>
 
