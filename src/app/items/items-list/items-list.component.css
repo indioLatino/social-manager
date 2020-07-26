@@ -57,3 +57,7 @@
 .card-body:hover{
   cursor:pointer;
 }
+
+.edit-button{
+  text-align: right;
+}

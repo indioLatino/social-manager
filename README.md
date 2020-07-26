@@ -1,28 +1,31 @@
-# SocialManager
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.1.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 # social-manager
+
+Proyecto web encargado de proporcionar el interfaz principal de la aplicación Foodie.
+
+## Prerequisitos
+* Es obligatorio tener previamente arrancado el proyecto foodieapi.
+ Para saber cómo arrancar el foodieapi utilice el documento README.md ubicado en su directorio raíz.
+ 
+* Es recomendable tener previamente arrancado el proyecto grocery-api. En caso de no estar arrancado este proyecto, no será posible
+ visualizar las cestas de la compra de las recetas.
+ Para saber cómo arrancar el grocery-api utilice el documento README.md ubicado en su directorio raíz.
+
+* Es obligatorio tener previamente arrancado el proyecto login-manager en el puerto 4201 para poder autenticarse en el social-manager.
+ Para saber cómo arrancar el login-manager utilice el documento README.md ubicado en su directorio raíz.
+
+* Es obligatorio tener Nodejs instalado en el equipo. Puede encontrar las instrucciones de instalación para su sistema
+operativo en el siguiente enlace [Nodejs](https://nodejs.org/en/download/package-manager/).
+
+* Es obligatorio tener el manejador de paquetes npm instalado en el equipo. Puede encontrar las instrucciones de instalación para su sistema operativo
+en el siguiente enlace [npm](https://www.npmjs.com/get-npm).
+
+* Es obligatorio tener la herramienta Angular CLI instalada en el equipo. Puede encontrar las instrucciones de instalación 
+en el siguiente enlace [angular-cli](https://angular.io/guide/setup-local).
+
+## Arrancar la aplicación
+
+Primeramente hay que posicionarse en el directorio de raíz del proyecto e instalar las dependecias ejecutando:
+`npm install`
+Una vez instaladas las dependencias ejecutar `ng serve` para arrancar la aplicación.
+
+Abra la siguiente url en su navegador para ver la aplicación arrancada `http://localhost:4200/`.

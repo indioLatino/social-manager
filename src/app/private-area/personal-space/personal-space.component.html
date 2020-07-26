@@ -1,46 +1,101 @@
-<form class="text-center border border-light p-5 mt-5" [formGroup]="userForm">
-  <!-- start container -->
-  <div class="container">
-    <!-- TITTLE -->
+<!-- start container -->
+<div class="container">
+  <form class="text-center border border-light p-5 mt-5" [formGroup]="userForm">
     <br>
     <h3 align="left" class="ml-4">
       <!--<strong>{{'item-editor.creationTitle'|translate}}</strong>-->
-      <strong>Personal area</strong>
+      <!--{{'personal-space.title'|translate}}-->{{loggedUser.userName}} {{loggedUser.userLastName}}
     </h3>
     <br>
     <div class="row">
-      <!-- Col IMAGE -->
-      <div class="col-sm-4">
+      <!-- COL IMAGE -->
+      <div class="col-sm-4 image-container">
         <img [src]="formImage" class="img-fluid" alt="Responsive image">
         <input type="text" class="form-control mb-3" placeholder="{{'item-editor.mainImage'|translate}}"
                formControlName="userProfilePicture" hidden>
-        <div class="custom-file">
+        <div class="custom-file" [hidden]="!editionMode">
           <button type="button" class="custom-file-input" id="upload_image"></button>
           <label class="custom-file-label" for="upload_image">{{'item-editor.uploadButtonText1'|translate}}</label>
           <div class="invalid-feedback">Example invalid custom file feedback</div>
         </div>
       </div>
-      <div class="col-sm-8">
-        <!-- Tittle -->
-        <input type="text" class="form-control mb-4"
-               placeholder="Name" formControlName="userName">
-        <input type="text" class="form-control mb-4"
-               placeholder="Last Name" formControlName="userLastName">
-        <input type="text" class="form-control mb-4"
-               placeholder="Email" formControlName="userEmail">
-        <input type="text" class="form-control mb-4"
-               placeholder="Nickname" formControlName="userNickname" hidden>
-        <input type="text" class="form-control mb-4"
-               placeholder="Registration date" formControlName="userRegistrationDate" hidden>
-        <input type="text" class="form-control mb-4"
-               placeholder="Number of posts" formControlName="userPostsNumber" hidden>
-        <input type="text" class="form-control mb-4"
-               placeholder="Gender" formControlName="userGender">
+      <!-- COL PERSONAL DATA -->
+      <div class="col-sm-8 personal-info">
+        <!-- name -->
+        <div class="form-group" hidden>
+          <label for="name">{{'personal-space.form.name'|translate}}</label>
+          <input type="text" id="name" class="form-control"
+                 placeholder="{{'personal-space.form.placeholder.name'|translate}}" formControlName="userName">
+        </div>
+        <!-- last name -->
+        <div class="form-group" hidden>
+          <label for="lastName">{{'personal-space.form.lastName'|translate}}</label>
+          <input id="lastName" type="text" class="form-control mb-4"
+                 placeholder="{{'personal-space.form.placeholder.lastName'|translate}}" formControlName="userLastName">
+        </div>
+        <!-- nickname -->
+        <div class="form-group">
+          <label for="nickName">{{'personal-space.form.nickName'|translate}}</label>
+          <input id="nickName" type="text" class="form-control mb-4"
+                 placeholder="{{'personal-space.form.placeholder.nickName'|translate}}" formControlName="userNickname"
+                 [readOnly]="!editionMode">
+        </div>
+        <!-- email -->
+        <div class="form-group">
+          <label for="email">{{'personal-space.form.email'|translate}}</label>
+          <input id="email" type="text" class="form-control mb-4"
+                 placeholder="{{'personal-space.form.placeholder.email'|translate}}" formControlName="userEmail"
+                 [readOnly]="!editionMode">
+        </div>
+        <!-- row -->
+        <div class="row">
+          <!-- column -->
+          <div class="col-sm-6">
+            <!-- posts number -->
+            <div class="form-group">
+              <label for="postsNumber">{{'personal-space.form.postsNumber'|translate}}</label>
+              <input id="postsNumber" type="text" class="form-control mb-4"
+                     placeholder="{{'personal-space.form.placeholder.postsNumber'|translate}}"
+                     formControlName="userPostsNumber" readOnly>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <!-- gender -->
+            <div class="form-group">
+              <label for="gender">{{'personal-space.form.gender'|translate}}</label>
+              <select class="form-control" id="gender" [attr.disabled]="editionMode?null:''"
+                      formControlName="userGender">
+                <option *ngFor="let gender of genders" [value]="gender.value">{{gender.viewValue}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- registration date -->
+        <div class="form-group" hidden>
+          <label for="registrationDate">{{'personal-space.form.registrationDate'|translate}}</label>
+          <input id="registrationDate" type="text" class="form-control mb-4"
+                 placeholder="{{'personal-space.form.placeholder.registrationDate'|translate}}"
+                 formControlName="userRegistrationDate" hidden>
+        </div>
+
       </div>
     </div>
-    <!-- Send button -->
-    <button mdbBtn color="info" block="true" type="submit" class="btn btn-success col-sm-2 mt-3" style="float: right;"
-            (click)="onSubmit()" [disabled]="userForm.invalid">Update
-    </button>
+  </form>
+  <!-- Edit button -->
+  <button mdbBtn color="info" block="true" class="btn btn-success col-sm-2 mt-3" style="float: right;"
+          (click)="onEdit()" [hidden]="editionMode||!canEdit">Edit
+  </button>
+  <!-- Send button -->
+  <button mdbBtn color="info" block="true" type="submit" class="btn btn-success col-sm-2 mt-3" style="float: right;"
+          (click)="onSubmit()" [disabled]="userForm.invalid" [hidden]="!editionMode">Update
+  </button>
+  <!-- Cancel button -->
+  <button mdbBtn block="true" type="submit" class="btn btn-light col-sm-2 mt-3" style="float: right;"
+          (click)="onCancel()" [disabled]="userForm.invalid" [hidden]="!editionMode">Cancel
+  </button>
+  <div class="text-center border border-light p-md-5" [hidden]="canEdit">
+    <h4 align="left" class="ml-4">Recipes</h4>
+    <app-items-list [authorId]="loggedUser._id"></app-items-list>
   </div>
-</form>
+</div>
+

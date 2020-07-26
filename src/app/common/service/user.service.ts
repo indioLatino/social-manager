@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable, of} from 'rxjs';
-import {map, catchError, tap} from 'rxjs/operators';
-import {CognitoAccessToken, CognitoIdToken, CognitoRefreshToken, CognitoUserSession} from 'amazon-cognito-identity-js';
 import {FoodieUser} from '../../model/foodie-user';
 
 
@@ -15,6 +13,7 @@ export class UserService {
   // Session shared data
   private userSessionSource = new BehaviorSubject<string>(null);
   public userSession = this.userSessionSource.asObservable();
+  // the user is not loaded initially
   private foodieUserLoaded: Boolean = true;
   // User shared data
   private userDataSource = new BehaviorSubject<FoodieUser>(new FoodieUser());
@@ -27,8 +26,10 @@ export class UserService {
 
   constructor(private http: HttpClient) {
     this.userData.subscribe((user) => {
+      // flag that the user is loaded
       this.foodieUserLoaded = !this.foodieUserLoaded;
     });
+    console.log('user service running');
   }
 
   public initializeSession(): void {
@@ -36,6 +37,15 @@ export class UserService {
     if (accessToken && !this.foodieUserLoaded) {
       this.updateSession(accessToken);
     }
+  }
+
+  // temporary
+  public deleteSession(message: string) {
+    localStorage.removeItem('accessToken');
+    this.userDataSource.next(new FoodieUser());
+    this.foodieUserLoaded = false;
+    alert(message);
+    this.initializeSession();
   }
 
   private extractData(res: Response) {
@@ -51,8 +61,11 @@ export class UserService {
     this.userSessionSource.next(accessToken);
     localStorage.setItem('accessToken', accessToken);
     this.getUserDetailFromToken(accessToken).subscribe((authenticatedUser: FoodieUser) => {
-      this.updateUserData(authenticatedUser);
-    });
+        this.updateUserData(authenticatedUser);
+      },
+      error => {
+
+      });
   }
 
   getUserDetailFromToken(accessToken: string): Observable<any> {
@@ -60,8 +73,13 @@ export class UserService {
     return this.http.post<any>(this.endpoint + 'detail-by-token', {'accessToken': accessToken}, this.httpOptions);
   }
 
+  getUserDetail(id: string): Observable<any>  {
+    console.log('getUserDetail method executed');
+    return this.http.get<any>(`${this.endpoint}detail?id=${id}`, this.httpOptions);
+  }
+
   // todo: secure this endpoint in the backend and add the accessToken to the request
-  updateFoodieUser(user: FoodieUser) {
+  updateFoodieUser(user: FoodieUser): Observable<any> {
     console.log('updateFoodieUser method executed');
     return this.http.put<any>(this.endpoint + 'update?id=' + user._id, user, this.httpOptions);
   }

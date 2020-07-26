@@ -11,11 +11,10 @@ export class AppComponent implements OnInit {
   title = 'social-manager';
 
   constructor(private translate: TranslateService, private userService: UserService) {
-
+    this.translate.setDefaultLang('en-GB');
+    this.userService.initializeSession();
   }
 
   ngOnInit(): void {
-    this.translate.setDefaultLang('en-GB');
-    this.userService.initializeSession();
   }
 }

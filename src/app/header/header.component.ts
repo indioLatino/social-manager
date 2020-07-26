@@ -9,7 +9,7 @@ import {FoodieUser} from '../model/foodie-user';
 })
 export class HeaderComponent implements OnInit {
 
-  private foodieUser: FoodieUser;
+  public foodieUser: FoodieUser;
 
   constructor(private userService: UserService) {
   }
@@ -18,5 +18,10 @@ export class HeaderComponent implements OnInit {
     this.userService.userData.subscribe((user: FoodieUser) => {
       this.foodieUser = user;
     });
+  }
+
+  /** Temporary **/
+  private logOut(): void {
+    this.userService.deleteSession('Successfully logged out');
   }
 }

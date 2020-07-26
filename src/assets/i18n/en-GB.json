@@ -15,5 +15,26 @@
     "uploadButtonText1": "Choose file...",
     "addIngredientButton": "Add ingredient",
     "addStep": "Add step"
+  },
+  "personal-space": {
+    "title": "My profile",
+    "form": {
+      "name": "Name",
+      "lastName": "Last name",
+      "email": "Email",
+      "nickName": "Nickname",
+      "registrationDate": "Registration date",
+      "postsNumber": "Number of posts",
+      "gender": "Gender",
+      "placeholder": {
+        "name": "User name",
+        "lastName": "User last name",
+        "email": "User email",
+        "nickName": "User nickname",
+        "registrationDate": "User registration date",
+        "postsNumber": "User number of posts",
+        "gender": "User gender"
+      }
+    }
   }
 }

@@ -43,6 +43,10 @@ export class AuthenticationComponent implements OnInit {
         this.userService.updateSession(event.data.signInUserSession.accessToken.jwtToken);
         this.router.navigate(['']);
       }
+      if (event.data.message === 'register success') {
+        alert('Registered succesfully! Check your inbox to confirm your email address');
+        this.router.navigate(['']);
+      }
     }
   }
 }

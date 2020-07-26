@@ -12,10 +12,10 @@ export class InstructionListComponent implements OnInit {
   private item: Item = new Item();
   private instructionArray: Instruction[] = [];
   private sortedInstructionArray: Instruction[] = [];
-  private currentInstructionPosition: number = 1;
+  currentInstructionPosition = 1;
   private currentInstruction: Instruction = new Instruction();
   private screenInstructionArray: Instruction[] = [];
-  private chunkFactor: number = 3; //Number from where the sortedInstructionArray is going to be chunk
+  private chunkFactor = 3; // Number from where the sortedInstructionArray is going to be chunk
   private itemService: ItemService;
 
   constructor(itemService: ItemService) {
@@ -51,6 +51,7 @@ export class InstructionListComponent implements OnInit {
     this.instructionArray = this.item.instructions;
     this.sortedInstructionArray = this.instructionArray.sort((a, b) => a.instructionOrder - b.instructionOrder);
     this.currentInstruction = this.sortedInstructionArray[this.currentInstructionPosition - 1];
+    console.log(this.currentInstruction.instructionOrder);
     for (var i = 0; i < this.chunkFactor; i++) {
       this.screenInstructionArray.push(this.sortedInstructionArray[i]);
     }

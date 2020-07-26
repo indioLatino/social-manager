@@ -1,20 +1,26 @@
-import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ItemEditorComponent } from './item-editor/item-editor.component';
-import {RouterModule, Routes} from "@angular/router";
-import { PersonalSpaceComponent } from './personal-space/personal-space.component';
+import {ModuleWithProviders, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ItemEditorComponent} from './item-editor/item-editor.component';
+import {RouterModule, Routes} from '@angular/router';
+import {PersonalSpaceComponent} from './personal-space/personal-space.component';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
-import {TranslateModule} from "@ngx-translate/core";
-import { ReactiveFormsModule } from '@angular/forms';
-import {TabsModule} from "ngx-bootstrap/tabs";
+import {TranslateModule} from '@ngx-translate/core';
+import {ReactiveFormsModule} from '@angular/forms';
+import {TabsModule} from 'ngx-bootstrap/tabs';
+import {ItemsModule} from '../items/items.module';
+import {UserService} from '../common/service/user.service';
 
-const routes: Routes = [
+const routesPrivateArea: Routes = [
   {
-    path: '',
+    path: 'account',
     component: PersonalSpaceComponent
   },
   {
-    path: 'editor/:id',
+    path: 'account/:userId',
+    component: PersonalSpaceComponent
+  },
+  {
+    path: 'editor/:itemId',
     component: ItemEditorComponent
   },
   {
@@ -27,9 +33,10 @@ const routes: Routes = [
   declarations: [ItemEditorComponent, PersonalSpaceComponent],
   imports: [
     CommonModule,
+    ItemsModule,
     ReactiveFormsModule,
     TabsModule,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(routesPrivateArea),
     MDBBootstrapModule.forRoot(),
     TranslateModule
   ],
@@ -37,4 +44,5 @@ const routes: Routes = [
     NO_ERRORS_SCHEMA
   ]
 })
-export class PrivateAreaModule { }
+export class PrivateAreaModule {
+}

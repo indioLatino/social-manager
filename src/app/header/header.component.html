@@ -1,38 +1,38 @@
-<mdb-navbar SideClass="navbar navigation-header fixed-top navbar-expand-lg navbar-dark scrolling-navbar" id="navegationHeader" [containerInside]="false">
+<mdb-navbar SideClass="navbar navigation-header fixed-top navbar-expand-lg navbar-dark scrolling-navbar"
+            id="navegationHeader" [containerInside]="false">
   <logo>
-      <a class="logo navbar-brand main-logo" href="#"><strong>foodie</strong> </a>
+    <a class="logo navbar-brand main-logo" href="#"><h1>foodie</h1></a>
   </logo>
   <links>
-      <ul class="navbar-nav mr-auto">
-        <!-- Dropdown -->
-        <!--<li class="nav-item dropdown" dropdown>
-          <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-            Basic dropdown<span class="caret"></span></a>
-          <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Action</a>
-            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Another action</a>
-            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Something else here</a>
-            <div class="divider dropdown-divider"></div>
-            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Separated link</a>
-          </div>
-        </li>-->
-
-      </ul>
     <ul class="navbar-nav ml-auto nav-flex-icons">
-      <!--<li class="nav-item">
-        <a class="nav-link">
-          <mdb-icon fab icon="twitter"></mdb-icon>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link">
-          <mdb-icon fab icon="google-plus"></mdb-icon>
-        </a>
-      </li>-->
-      <li class="nav-item">
+
+        <!--<li class="nav-item mr-auto" *ngIf="foodieUser.userName">
+          <a class="nav-link" [routerLink]="['item', foodieUser._id]">
+            Favorite <i class="fas fa-heart"></i>
+          </a>
+        </li>-->
+        <li class="nav-item mr-auto" *ngIf="foodieUser.userName">
+          <a class="nav-link pl-md-4" [routerLink]="['item/list', foodieUser._id]">
+            My recipes <i class="fas fa-utensils"></i>
+          </a>
+        </li>
+
+        <li class="nav-item mr-auto  pl-md-4" *ngIf="foodieUser.userName">
+          <a class="nav-link" [routerLink]="['/private/editor']">
+            New recipe <i class="fas fa-plus"></i>
+          </a>
+        </li>
+
+      <li class="nav-item pl-md-4">
         <a class="nav-link">
           <div class="btn-group" mdbDropdown>
-            <a mdbDropdownToggle>{{foodieUser.userName}} {{foodieUser.userLastName}} <i class="fas fa-user"></i></a>
+            <a mdbDropdownToggle>
+                {{foodieUser.userName}} {{foodieUser.userLastName}}
+              <i *ngIf="!foodieUser.userProfilePicture" class="fas fa-user"></i>
+              <img *ngIf="foodieUser.userProfilePicture" class="rounded-circle" alt="10x10"
+                   src="{{foodieUser.userProfilePicture}}"
+                   data-holder-rendered="true">
+            </a>
             <!--<mdb-icon fas icon="user" mdbDropdownToggle></mdb-icon>-->
             <div class="dropdown-menu dropdown-menu-right dropdown-primary">
               <div *ngIf="!foodieUser.userName">
@@ -40,18 +40,18 @@
                 <a class="dropdown-item" [routerLink]="['/authentication', 'register']">Sign up</a>
               </div>
               <div *ngIf="foodieUser.userName">
-                <a class="dropdown-item" [routerLink]="['/private']">My account</a><!--No implementada-->
-                <a class="dropdown-item" [routerLink]="['/private/editor', 'register']">My recipes</a><!--No implementada-->
-                <a class="dropdown-item" [routerLink]="['/private/editor']">New recipe</a><!--No implementada-->
-                <a class="dropdown-item" [routerLink]="['/authentication', 'register']">Log out</a><!--No implementada-->
+                <a class="dropdown-item" [routerLink]="['/private/account']">My account</a><!--No implementada-->
+                <div class="divider dropdown-divider"></div>
+                <a class="dropdown-item" (click)="logOut()" [routerLink]="['']">Log out</a>
               </div>
-              <!--<a class="dropdown-item" href="#">Something else here</a>
-              <div class="divider dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>-->
             </div>
           </div>
         </a>
       </li>
+
+
+
+
     </ul>
   </links>
 </mdb-navbar>

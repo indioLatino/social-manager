@@ -1,6 +1,7 @@
 import {RouterModule, Routes} from '@angular/router';
 import {AuthenticationComponent} from './authentication.component';
-import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import {ModuleWithProviders, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import {UserService} from '../common/service/user.service';
 
 const routes: Routes = [
   {

@@ -16,40 +16,23 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import { PricingComponent } from './pricing/pricing/pricing.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import {PrivateAreaModule} from './private-area/private-area.module';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/item', pathMatch: 'full'},
+  {path: '', redirectTo: 'item/list', pathMatch: 'full'},
   {
-    path: '',
-    component: AppComponent,
-    children: [
-      {
-        path: 'item',
-        loadChildren: () => import('./items/items.module').then(m => m.ItemsModule)
-      }
-    ]
+    path: 'item',
+    loadChildren: () => import('./items/items.module').then(m => m.ItemsModule)
   },
   {
-    path: '',
-    component: AppComponent,
-    children: [
-      {
-        path: 'private',
-        loadChildren: () => import('./private-area/private-area.module').then(m => m.PrivateAreaModule)
-      }
-    ]
+    path: 'private',
+    loadChildren: () => import('./private-area/private-area.module').then(m => m.PrivateAreaModule)
   },
   {
-    path: '',
-    component: AppComponent,
-    children: [
-      {
-        path: 'authentication',
-        loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
-      }
-    ]
+    path: 'authentication',
+    loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
   },
-  {path: '**', redirectTo: '/item'}
+  {path: '**', redirectTo: ''}
 ];
 
 @NgModule({
@@ -59,7 +42,6 @@ const routes: Routes = [
     AuthenticationComponent
   ],
   imports: [
-    ItemsModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,

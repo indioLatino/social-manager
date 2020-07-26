@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {FoodieRestService} from '../../common/service/foodie-rest.service';
 import {UserService} from '../../common/service/user.service';
-import {s3} from 'fine-uploader/lib/core/s3';
 import {FoodieUser} from '../../model/foodie-user';
-import {Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
+import {Gender} from '../../common/gender';
+import {UploadService} from '../../common/service/upload.service';
 
 @Component({
   selector: 'app-personal-space',
@@ -14,29 +15,53 @@ import {Router} from '@angular/router';
 export class PersonalSpaceComponent implements OnInit {
 
   loggedUser: FoodieUser;
+  editionMode: Boolean = false;
   uploader: any;
   userForm: FormGroup;
   // todo: make it a property
   formImage = 'https://foodieapi.s3.amazonaws.com/recipes/f5fcadb4-53fd-4795-ac4d-47f2af45fb97';
   // todo: make it a property
   bucketName = 'foodieapi';
-
-  constructor(private formBuilder: FormBuilder, private foodieService: FoodieRestService, private userService: UserService, private router: Router) {
+  // todo: bring from the database
+  genders: Gender[] = [
+    {value: 'male', viewValue: 'Male'},
+    {value: 'female', viewValue: 'Female'},
+    {value: 'other', viewValue: 'Other'},
+    {value: 'rathernottosay', viewValue: 'Rather not to say'}
+  ];
+  private userId;
+  canEdit: Boolean = false;
+  constructor(
+    private formBuilder: FormBuilder,
+    private foodieService: FoodieRestService,
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private uploadService: UploadService
+  ) {
   }
 
   ngOnInit() {
+    this.userId = this.route.snapshot.paramMap.get('userId');
     this.buildFormUser();
-    this.userService.userData.subscribe((user) => {
-      this.loggedUser = user;
-      this.formImage = this.loggedUser.userProfilePicture ? this.loggedUser.userProfilePicture : this.formImage;
-      this.initFormUserValues();
-    });
+    if (!this.userId) {
+      this.canEdit = true;
+      this.userService.userData.subscribe((user) => {
+        this.loggedUser = user;
+        this.formImage = this.loggedUser.userProfilePicture ? this.loggedUser.userProfilePicture : this.formImage;
+        this.initFormUserValues();
+      });
+    } else {
+      this.userService.getUserDetail(this.userId).subscribe((user) => {
+        this.loggedUser = user;
+        this.formImage = this.loggedUser.userProfilePicture ? this.loggedUser.userProfilePicture : this.formImage;
+        this.initFormUserValues();
+      });
+    }
   }
 
   ngAfterViewInit() {
-    const instance = this;
-    // TODO: Remove this logic to its own file
-    this.uploader = new s3.FineUploaderBasic({
+    this.uploader = this.uploadService.getUploader(this, 'userProfilePicture', this.userForm);
+    /*new s3.FineUploaderBasic({
       button: document.getElementById('upload_image'),
       debug: false,
       autoUpload: true,
@@ -98,7 +123,7 @@ export class PersonalSpaceComponent implements OnInit {
         // onError: function (id, name, reason, maybeXhrOrXdr) {  },
         // onSessionRequestComplete: function (response, success, xhrOrXdr) { }
       }
-    });
+    });*/
   }
 
   private initFormUserValues() {
@@ -115,11 +140,23 @@ export class PersonalSpaceComponent implements OnInit {
 
   private onSubmit() {
     const updatedUser = this.userForm.getRawValue();
-    this.userService.updateFoodieUser(updatedUser).subscribe((response) => {
-      /* if (response.status === 200) {*/
-      this.router.navigate(['']);
-      /* }*/
-    });
+    this.userService.updateFoodieUser(updatedUser).subscribe(
+      res => {
+        alert('Succesfully updated');
+        window.location.reload();
+      },
+      err => console.log('HTTP Error', err),
+      () => console.log('HTTP request completed.')
+    );
+  }
+
+  private onEdit(): void {
+    this.editionMode = true;
+  }
+
+  private onCancel(): void {
+    this.editionMode = false;
+    this.initFormUserValues();
   }
 
   private buildFormUser(): void {

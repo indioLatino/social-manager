@@ -29,10 +29,6 @@
         <!-- Tittle -->
         <input type="text" id="defaultContactFormName" class="form-control mb-4"
                placeholder="{{'item-editor.title'|translate}}" formControlName="itemName">
-        <!-- todo: implement error messages for validations -->
-        <!--<div *ngIf="itemForm.get('itemName').errors.required">
-          El título es obligatorio
-        </div>-->
 
         <!-- Description -->
         <div class="form-group">
@@ -58,7 +54,7 @@
                    placeholder="Measurement unit" formControlName='productUnit'>
           </div>
           <div class="text-left">
-            <button (click)="addNewProduct()"
+            <button (click)="addNewProduct(null)"
                     class="btn btn-light col-sm-2 mt-3">{{'item-editor.addIngredientButton'|translate}}</button>
           </div>
         </div>
@@ -79,7 +75,7 @@
                       formControlName="instructionText"></textarea>
           </div>
           <div class="text-left">
-            <button (click)="addNewInstruction()"
+            <button (click)="addNewInstruction(null)"
                     class="btn btn-light col-sm-2 mt-3">{{'item-editor.addStep'|translate}}</button>
           </div>
         </div>
@@ -87,9 +83,17 @@
       <!-- End tabs -->
     </tabset>
 
-    <!-- Send button -->
+    <!-- Update button -->
     <button mdbBtn color="info" block="true" type="submit" class="btn btn-success col-sm-2 mt-3" style="float: right;"
-            (click)="onSubmit()" [disabled]="itemForm.invalid">Create
+            (click)="onUpdate()" [disabled]="itemForm.invalid" [hidden]="!editionMode">Update
+    </button>
+    <!-- Create button -->
+    <button mdbBtn color="info" block="true" type="submit" class="btn btn-success col-sm-2 mt-3" style="float: right;"
+            (click)="onSubmit()" [disabled]="itemForm.invalid" [hidden]="editionMode">Create
+    </button>
+    <!-- Cancel button -->
+    <button mdbBtn color="info" block="true" type="submit" class="btn btn-light col-sm-2 mt-3" style="float: right;"
+            (click)="onSubmit()" [disabled]="itemForm.invalid">Cancel
     </button>
 
     <!-- End container-->

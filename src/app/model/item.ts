@@ -3,6 +3,7 @@ import {Instruction} from './instruction';
 import {Creator} from './creator';
 
 export class Item {
+  _id: string;
   itemName: string;
   itemDescription: string;
   itemMainImage: string;

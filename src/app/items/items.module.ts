@@ -1,4 +1,4 @@
-import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import {ModuleWithProviders, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ItemsListComponent} from './items-list/items-list.component';
 import {ItemDetailComponent} from './item-detail/item-detail.component';
@@ -13,10 +13,15 @@ import {WavesModule, TableModule} from 'angular-bootstrap-md';
 import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {PricingComponent} from '../pricing/pricing/pricing.component';
+import {UserService} from '../common/service/user.service';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'list',
+    component: ItemsListComponent
+  },
+  {
+    path: 'list/:loggedAuthorId',
     component: ItemsListComponent
   },
   {
@@ -43,6 +48,9 @@ const routes: Routes = [
     ItemDetailComponent,
     CreatorComponent,
     ProductListComponent
+  ],
+  exports: [
+    ItemsListComponent
   ],
   schemas: [
     NO_ERRORS_SCHEMA
